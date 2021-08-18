@@ -1,13 +1,12 @@
 ''' 장비 준비 '''
+
 import numpy as np
 import matplotlib.pyplot as plt
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms, datasets
 import random
-from torchsummary import summary
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Subset, DataLoader
 import torchvision.models as models
@@ -61,7 +60,6 @@ dataset = datasets.ImageFolder(root = path,
                                   transforms.Normalize([0.4, 0.4, 0.4], [0.2, 0.2, 0.2])
                               ])) 
 
-# train/test data 분리. 사이킷런 train_test_split과 torch.utils.data의 Subset 활용
 test_idx = list(range(len(dataset)))
 test_data = Subset(dataset, test_idx)
 
