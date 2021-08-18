@@ -12,13 +12,12 @@ from torch.utils.data import Subset, DataLoader
 import torchvision.models as models
 from efficientnet_pytorch import EfficientNet
 
-PATH = './weight/'
 DEVICE = torch.device("cuda")
 
 model = models.resnet18()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 
-model = torch.load(PATH + 'model.pt')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+model = torch.load('model.pt')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
 model.to(DEVICE)
 
 def evaluate(model, test_loader):
