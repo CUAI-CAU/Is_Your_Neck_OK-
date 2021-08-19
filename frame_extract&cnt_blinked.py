@@ -107,7 +107,7 @@ def recording(cap, fps, codec, count, start_time, COUNTER, TOTAL, cnt, start_t):
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+    predictor = dlib.shape_predictor('./model/shape_predictor_68_face_landmarks.dat')
     fps = 11
     codec = cv2.VideoWriter_fourcc('D', 'I', 'V', 'X')
     count = 99
