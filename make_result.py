@@ -40,8 +40,8 @@ class MyWidget(QWidget):
         most_asymmetric_imge = str(asymmetry[1])
         most_crooked_image = str(asymmetry[2])
 
-        analysis = self.name + "님의 3분간 자세 분석 결과입니다. " + self.name + "님의 가장 올바랐던 자세는 'result1' 이며 가장 거북이에 " + \
-                   "가까웠던 자세는 'result2' 입니다.  바른 자세의 비율은 " + turtle_ratio + "%입니다. " + \
+        analysis = self.name + "님의 3분간 자세 분석 결과입니다. " + self.name + "님의 가장 올바랐던 자세는 <Result 1> 이며 가장 거북이에 " + \
+                   "가까웠던 자세는 <Result 2> 입니다.  바른 자세의 비율은 " + turtle_ratio + "%입니다. " + \
                    self.name + "님은 3분 동안 눈을 " + str(blinked) + "번 깜박이셨습니다. " + asymmetry_comment
 
         self.pixmap = QPixmap('./outbody_logo.png') # 로고
@@ -57,8 +57,17 @@ class MyWidget(QWidget):
         temp = self.name+"님의 " + str(self.date) + " OUTBODY 분석 결과"
         self.sub_title = QLabel(temp, self)
         font = self.sub_title.font()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.sub_title.setFont(font)
+
+        self.result1 = QLabel("<Result 1>", self)
+        self.result2 = QLabel("<Result 2>", self)
+        self.result3 = QLabel("<Result 3>", self)
+        self.result4 = QLabel("<Result 4>", self)
+        self.result1.setAlignment(Qt.AlignHCenter)
+        self.result2.setAlignment(Qt.AlignHCenter)
+        self.result3.setAlignment(Qt.AlignHCenter)
+        self.result4.setAlignment(Qt.AlignHCenter)
 
         self.comment = QTextBrowser(self)
         self.comment.append(analysis)
@@ -101,8 +110,12 @@ class MyWidget(QWidget):
 
         middle_picture.addWidget(self.normal, 0, 0)
         middle_picture.addWidget(self.turtle, 0, 1)
-        middle_picture.addWidget(self.shoulder, 1, 0)
-        middle_picture.addWidget(self.crooked, 1, 1)
+        middle_picture.addWidget(self.result1, 1, 0)
+        middle_picture.addWidget(self.result2, 1, 1)
+        middle_picture.addWidget(self.shoulder, 2, 0)
+        middle_picture.addWidget(self.crooked, 2, 1)
+        middle_picture.addWidget(self.result3, 3, 0)
+        middle_picture.addWidget(self.result4, 3, 1)
         # middle_picture.addWidget("결과", 2,0)
 
         vbox.addWidget(self.sub_title)
@@ -116,7 +129,7 @@ class MyWidget(QWidget):
         self.big_box.addLayout(middle_picture)
         self.big_box.addLayout(vbox)
         self.setLayout(self.big_box)
-        self.resize(590, 850)
+        self.resize(590, 900)
 
 
     def btnClick(self):

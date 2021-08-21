@@ -86,3 +86,16 @@ def detect_asymmetry(path):
 
     # Return most asymmetric image, most crooked image, crooked degree, crooked direction
     return most_asymmetric_image, most_crooked_image, most_crooked_degree, most_crooked_direction
+
+
+if __name__ == '__main__':
+    path = "./dataset/*.jpg"
+    most_asymmetric_image, most_crooked_image, most_crooked_degree, most_crooked_direction = detect_asymmetry(path)
+
+    comment = "가장 어깨가 삐뚤어진 순간은 <Result 3> 입니다. 몸은 중심에서 " + str(most_crooked_direction) + "쪽으로 " \
+              + str(most_crooked_degree) + "% 기울어진 편입니다. 가장 많이 몸이 기울어진 순간은 <Result 4> 입니다.\n"
+    comment += str(most_asymmetric_image) + "\n" + str(most_crooked_image)
+
+    with open("detect_asymmetry_result.txt", "w") as f:
+        f.write(comment)
+        f.close()
