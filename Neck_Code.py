@@ -15,13 +15,18 @@ from torch.utils.data import Dataset
 import torchvision.models as models
 from efficientnet_pytorch import EfficientNet
 
-PATH = './weight/'
+PATH = './model/weight/'
 DEVICE = torch.device("cuda")
 
 model = models.resnet18()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 
 model = torch.load(PATH + 'model.pt')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+#model.load_state_dict(torch.load(PATH + 'model_state_dict.pt'))  # state_dict를 불러 온 후, 모델에 저장
+#checkpoint = torch.load(PATH + 'all.tar')   # dict 불러오기
+#model.load_state_dict(checkpoint['model'])
+#optimizer.load_state_dict(checkpoint['optimizer'])
+
 model.to(DEVICE)
 
 
@@ -52,15 +57,9 @@ def evaluate(model, test_loader):
     
     return no_count, yes_count
 
-#seed = 777
-#BATCH_SIZE = 32
-
 ''' 데이터셋 준비 '''
 path = './dataset' # 불러올 데이터셋 경로 를 수정하여야 함.
 file_names = os.listdir(path)
-
-#image_name = path + '/' + file_names[1]
-#print(image_name)
 
 # 폴더 안의 이미지 데이터 불러오기
 class custom_dataset(Dataset):
@@ -99,7 +98,7 @@ dataset = datasets.ImageFolder(root = path,
                                   transforms.Normalize([0.4, 0.4, 0.4], [0.2, 0.2, 0.2])
                               ]))
 """
-# train/test data 분리. 사이킷런 train_test_split과 torch.utils.data의 Subset 활용
+
 test_idx = list(range(len(dataset)))
 test_data = Subset(dataset, test_idx)
 
@@ -115,5 +114,16 @@ for i in range(len(output_list)):
 
 checklist = np.array(checklist)
 
-print(checklist.argmin(), checklist.argmax()) # 왼쪽이 정상 경향이 가장 큰 사진 인덱스, 오른쪽이 거북목 경향이 가장 큰 사진 인덱스
-print(no_count, yes_count) # 왼쪽이 정상 사진 갯수, 오른쪽이 거북목 사진 갯수.
+ratio = (no_count / (no_count + yes_count)) * 100 # 정상 비율
+
+comment = "./dataset/"+str(file_names[checklist.argmin()])+"!./dataset/"+str(file_names[checklist.argmax()])+"!" + str(ratio)
+
+with open("turtle_result.txt", "w") as f:
+    f.write(comment)
+    f.close()
+
+#print(file_names[checklist.argmin()], file_names[checklist.argmax()]) 
+# 왼쪽이 정상 경향이 가장 큰 사진 인덱스, 오른쪽이 거북목 경향이 가장 큰 사진 인덱스
+
+#print(no_count, yes_count) 
+# 왼쪽이 정상 사진 갯수, 오른쪽이 거북목 사진 갯수.
