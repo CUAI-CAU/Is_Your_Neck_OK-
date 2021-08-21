@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from PyQt5 import QtCore, QtGui, QtWidgets, QtPrintSupport
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPdfWriter, QPagedPaintDevice, QPainter, QScreen, QPixmap
@@ -95,11 +96,9 @@ class MyWidget(QWidget):
 
 
         # 버튼 생성
-        self.btn = QPushButton('Print PDF File', self)
-        self.btn.clicked.connect(self.btnClick)
 
-        self.btn2 = QPushButton('Make PDF file', self)
-        self.btn2.clicked.connect(self.btnClick2)
+        self.save = QPushButton('Save Result', self)
+        self.save.clicked.connect(self.saveClick)
 
         # 컨트롤 박스 레이아웃 배치
         layout = QHBoxLayout()
@@ -120,8 +119,7 @@ class MyWidget(QWidget):
 
         vbox.addWidget(self.sub_title)
         vbox.addWidget(self.comment)
-        vbox.addWidget(self.btn)
-        vbox.addWidget(self.btn2)
+        vbox.addWidget(self.save)
 
 
         self.big_box.addLayout(layout)
@@ -129,65 +127,20 @@ class MyWidget(QWidget):
         self.big_box.addLayout(middle_picture)
         self.big_box.addLayout(vbox)
         self.setLayout(self.big_box)
-        self.resize(590, 900)
+        self.resize(500, 900)
 
 
-    def btnClick(self):
-        # 프린터 생성, 실행
-        printer = QPrinter()
-        dlg = QPrintDialog(printer, self)
-        if dlg.exec() == QDialog.Accepted:
-            # Painter 생성
-            qp = QPainter()
-            qp.begin(printer)
-
-            # 여백 비율
-            wgap = printer.pageRect().width() * 0.1
-            hgap = printer.pageRect().height() * 0.1
-
-            # 화면 중앙에 위젯 배치
-            xscale = (printer.pageRect().width() - wgap) / 600#self.big_box.width()
-            yscale = (printer.pageRect().height() - hgap) / 700#self.big_box.height()
-            scale = xscale if xscale < yscale else yscale
-            qp.translate(printer.paperRect().x() + printer.pageRect().width() / 2,
-                         printer.paperRect().y() + printer.pageRect().height() / 2)
-            qp.scale(scale, scale);
-            qp.translate(-600 / 2, -700 / 2);
-            #qp.translate(-self.big_box.width() / 2, -self.big_box.height() / 2);
-
-            # 인쇄
-            self.vbox.render(qp)
-
-            qp.end()
-
-    def btnClick2(self):
-        # pdf 생성
-        pdf = QPdfWriter('OUTBODY_Result.pdf')
-        pdf.setPageSize(QPagedPaintDevice.A4)
-
-        # 화면 캡쳐
-        screen = QApplication.primaryScreen()
-
-        img = screen.grabWindow(self.winId(), 0, 0, self.rect().width(), self.rect().height())
-
-        # 3항 연산자 (a if test else b, 만약 test가 참이면 a, 아니면 b)
-        # 이미지 크기는 큰 값 기준, PDF 크기는 작은값 기준(화면 초과 방지)
-        img_size = img.width() if img.width() - img.height() > 0 else img.height()
-        pdf_size = pdf.width() if pdf.width() - pdf.height() < 0 else pdf.height()
-
-        # 최적 비율 얻기
-        ratio = pdf_size / img_size
-
-        # pdf에 쓰기
-        qp = QPainter()
-        qp.begin(pdf)
-        qp.drawPixmap(0, 0, img.width() * ratio, img.height() * ratio, img)
-        qp.end()
-        print("OUTBODY 결과가 pdf로 저장되었습니다.")
+    def saveClick(self):
+        date = datetime.now()
+        filename = date.strftime('%Y-%m-%d_%H-%M-%S.jpg')  # 파일이름 만들기용도
+        p = QScreen.grabWindow(self)  # (메인화면, 현재위젯)
+        p.save('test.jpg')
+        # QScreen은 PYQT5.QtGui에 포함되어 있는 항목으로 grabwindow로 캡쳐가 가능합니다.
+        print("OUTBODY 결과가 저장되었습니다.")
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = MyWidget()
     w.show()
     sys.exit(app.exec_())
