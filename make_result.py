@@ -30,7 +30,7 @@ class MyWidget(QWidget):
         #font1.setFamily('함초롬돋움')    # 폰트 설정
         self.information.setFont(font1)
 
-        asymmetry = open('./asymmetry_result.txt', 'r').read().split('\n')
+        asymmetry = open('./detect_asymmetry_result.txt', 'r').read().split('\n')
         blinked = open('./blink_count.txt', 'r').read()
         temp = open('./turtle_result.txt', 'r').read().split('!')
         mormal_img = temp[0]
