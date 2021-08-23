@@ -55,7 +55,7 @@ class MyWidget(QWidget):
         self.crooked_image = QPixmap(most_crooked_image)        # 어깨 가장 기울어진 자세
         self.crooked_image = self.crooked_image.scaledToHeight(244)
 
-        temp = self.name+"님의 " + str(self.date) + " OUTBODY 분석 결과"
+        temp = "\n"+self.name+"님의 " + str(self.date) + " OUTBODY 분석 결과"
         self.sub_title = QLabel(temp, self)
         font = self.sub_title.font()
         font.setPointSize(18)
@@ -94,12 +94,6 @@ class MyWidget(QWidget):
         self.shoulder.setPixmap(self.asymmetric_image)
         self.crooked.setPixmap(self.crooked_image)
 
-
-        # 버튼 생성
-
-        self.save = QPushButton('Save Result', self)
-        self.save.clicked.connect(self.saveClick)
-
         # 컨트롤 박스 레이아웃 배치
         layout = QHBoxLayout()
         layout.addWidget(self.label)
@@ -119,7 +113,6 @@ class MyWidget(QWidget):
 
         vbox.addWidget(self.sub_title)
         vbox.addWidget(self.comment)
-        vbox.addWidget(self.save)
 
 
         self.big_box.addLayout(layout)
@@ -127,16 +120,7 @@ class MyWidget(QWidget):
         self.big_box.addLayout(middle_picture)
         self.big_box.addLayout(vbox)
         self.setLayout(self.big_box)
-        self.resize(500, 900)
-
-
-    def saveClick(self):
-        date = datetime.now()
-        filename = date.strftime('%Y-%m-%d_%H-%M-%S.jpg')  # 파일이름 만들기용도
-        p = QScreen.grabWindow(self)  # (메인화면, 현재위젯)
-        p.save('test.jpg')
-        # QScreen은 PYQT5.QtGui에 포함되어 있는 항목으로 grabwindow로 캡쳐가 가능합니다.
-        print("OUTBODY 결과가 저장되었습니다.")
+        self.resize(500, 880)
 
 
 if __name__ == '__main__':
