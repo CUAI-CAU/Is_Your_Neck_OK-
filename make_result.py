@@ -46,7 +46,7 @@ class MyWidget(QWidget):
 
         analysis = self.name + "님의 3분간 자세 분석 결과입니다. " + self.name + "님의 가장 올바랐던 자세는 <Result 1> 이며 가장 거북이에 " + \
                    "가까웠던 자세는 <Result 2> 입니다.  바른 자세의 비율은 " + turtle_ratio + "%입니다.\n" + \
-                   self.name + "님은 눈을 " + str(blinked_avg) + "초에 한 번 깜박이셨습니다. 일반적으로 4초에 한 번 깜박이는 것이 정상입니다.\n" + \
+                   self.name + "님은 눈을 " + str(blinked_avg) + "초에 한 번 깜박이셨습니다. 일반적으로 3초에 한 번 깜박이는 것이 정상입니다.\n" + \
                    asymmetry_comment
 
         self.pixmap = QPixmap('./outbody_logo.png') # 로고
