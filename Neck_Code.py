@@ -12,8 +12,7 @@ from torchsummary import summary
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Subset, DataLoader
 from torch.utils.data import Dataset
-import torchvision.models as models
-from efficientnet_pytorch import EfficientNet
+import torchvision.models as models\
 
 PATH = './model/weight/'
 DEVICE = torch.device("cuda")
