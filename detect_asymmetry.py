@@ -70,7 +70,7 @@ def detect_asymmetry(path):
         # Crooked posture
         mid_Xpoint = (left_shoulder[0] + right_shoulder[0]) / 2 # shoulder midpoint
         nose_Xpoint = nose[0]
-        crooked_direction = 'left' if ((nose_Xpoint - mid_Xpoint) < 0) else 'right'
+        crooked_direction = '왼' if ((nose_Xpoint - mid_Xpoint) < 0) else '오른'
         crooked_degree = round(100 * abs(mid_Xpoint - nose_Xpoint) / abs(mid_Xpoint - right_shoulder[0]),2)
         crooked_record[crooked_degree] = (fname, crooked_direction) # add to dictionary
 
