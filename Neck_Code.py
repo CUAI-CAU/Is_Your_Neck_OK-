@@ -115,13 +115,13 @@ checklist = np.array(checklist)
 
 ratio = (no_count / (no_count + yes_count)) * 100 # 정상 비율
 
-comment = "./dataset/"+str(file_names[checklist.argmin()])+"!./dataset/"+str(file_names[checklist.argmax()])+"!" + str(ratio)
+comment = "./dataset/"+str(file_names[checklist.argmax()])+"!./dataset/"+str(file_names[checklist.argmin()])+"!" + str(ratio)
 
 with open("turtle_result.txt", "w") as f:
     f.write(comment)
     f.close()
 
-#print(file_names[checklist.argmin()], file_names[checklist.argmax()]) 
+#print(file_names[checklist.argmax()], file_names[checklist.argmin()]) 
 # 왼쪽이 정상 경향이 가장 큰 사진 인덱스, 오른쪽이 거북목 경향이 가장 큰 사진 인덱스
 
 #print(no_count, yes_count) 
