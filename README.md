@@ -25,8 +25,9 @@ Before running this program, please run the code below to install the necessary 
 ```python
 python -m pip install -r requirements.txt
 ```
-this code was tested with python 3.x.x, torch 1.xx   
-**Please note :** your system must have C++ processing program.
+This code was tested with python 3.x.x, torch 1.xx   
+**Please note :** Your system must have C++ processing program.
+
 
 ### 2. Record User’s Posture and Count Eye Blinking
 
