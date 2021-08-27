@@ -15,7 +15,18 @@ Paper, Poster and Presentation are in Korean.
 
 ## Applications
 
-## System
+## Full System Explanation
+
+This system is composed of 4 steps.
+
+**At first**, running ‘frame_extract_with_cnt_blinked.py’, your camera will take your record for 3 minutes and each 3 seconds, your picture will be made. In this process, your eye blink will be counted.
+
+**Secondly**, running ‘detect_asymmetry.py’, you will get your most crooked image and degree among your recorded pictures.  
+Applying Keypoint-R-CNN, the nose location and side shoulder location will be extracted. Using this information, we can find how much your shoulder is tilted and your face is biased from the center.
+
+**Thirdly**, running ‘Neck_Code.py’, the pre-trained ResNet-18 will predict your recorded pictures and return the count of the number of turtle necks and vice versa. It will also return a picture with the highest possible turtle neck.
+
+**Finally**, running ‘make_result.py’, you will get your ‘Out Body’ result by your recorded pictures.
 
 ## Code
 
