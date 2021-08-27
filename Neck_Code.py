@@ -1,21 +1,15 @@
 ''' 장비 준비 '''
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 from PIL import Image
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from torchvision import transforms, datasets
-import random
-from torchsummary import summary
-from sklearn.model_selection import train_test_split
 from torch.utils.data import Subset, DataLoader
 from torch.utils.data import Dataset
 import torchvision.models as models\
 
 PATH = './model/weight/'
-DEVICE = torch.device("cuda")
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = models.resnet18()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.002)

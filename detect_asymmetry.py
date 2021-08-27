@@ -3,7 +3,6 @@ import math
 
 import glob
 from PIL import Image
-
 import torch
 import torchvision
 from torchvision import models
