@@ -1,9 +1,10 @@
 numpy==1.19.2
 pandas==1.2.3
-torch==1.9.0+cu102
-torchvision==0.10.0+cu102
-opencv-python==4.0.1
-pillow==8.1.2
+torch==1.9.0
+torchvision==0.10.0
+opencv-python==4.0.1.23
+pillow==8.1.6
+CMake==3.21.2
+scipy==1.7.1
 dlib==19.22.0
 pyqt5==5.15.4
-pillow==8.2.0
