@@ -15,6 +15,8 @@ model = models.resnet18()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 
 model = torch.load(PATH + 'model.pt')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+# model = torch.load(PATH + 'model.pt', map_location='cpu') # cpu only
+
 #model.load_state_dict(torch.load(PATH + 'model_state_dict.pt'))  # state_dict를 불러 온 후, 모델에 저장
 #checkpoint = torch.load(PATH + 'all.tar')   # dict 불러오기
 #model.load_state_dict(checkpoint['model'])
